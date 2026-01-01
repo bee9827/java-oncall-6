@@ -1,4 +1,4 @@
-package oncall;
+package oncall.model;
 
 public enum DayOfWeek {
     MONDAY("월"),

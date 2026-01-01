@@ -1,6 +1,7 @@
-package oncall;
+package oncall.util;
 
 import java.util.function.Supplier;
+import oncall.view.OutputView;
 
 public class ErrorHandler {
     public static <T> T retry(Supplier<T> supplier, OutputView outputView) {

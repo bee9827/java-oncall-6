@@ -1,4 +1,4 @@
-package oncall;
+package oncall.model;
 
 public record Worker(String name) {
     public static final int MAX_LENGTH = 5;

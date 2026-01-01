@@ -1,4 +1,4 @@
-package oncall;
+package oncall.model;
 
 public enum Holidays {
     NEW_YEAR(1,1),

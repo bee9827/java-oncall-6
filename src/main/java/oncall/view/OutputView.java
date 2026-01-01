@@ -1,4 +1,4 @@
-package oncall;
+package oncall.view;
 
 public class OutputView {
     public static final String ERROR_PREFIX = "[ERROR] ";

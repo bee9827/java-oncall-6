@@ -3,6 +3,8 @@ package oncall;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import oncall.model.EmergencyWorker;
+import oncall.model.Worker;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 

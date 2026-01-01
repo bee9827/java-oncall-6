@@ -1,4 +1,4 @@
-package oncall;
+package oncall.model;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
