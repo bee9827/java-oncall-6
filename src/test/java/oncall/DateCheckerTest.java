@@ -23,6 +23,18 @@ class DateCheckerTest {
 
     @ParameterizedTest
     @CsvSource({
+            "1,true", //1.1[월](신정)
+            "2,false",
+            "6,true" // 1.6[토]
+    })
+    @DisplayName("휴일이면 True를 반환한다")
+    public void isHoliday(int day, boolean isHoliday) {
+        DateChecker dateChecker = new DateChecker(1, DayOfWeek.MONDAY);
+        assertThat(dateChecker.isHoliday(day)).isEqualTo(isHoliday);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
             "0", "13", "-1"
     })
     @DisplayName("1~12 값이 아니라면 예외를 던진다")
