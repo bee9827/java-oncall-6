@@ -3,7 +3,6 @@ package oncall;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.time.DayOfWeek;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,7 +27,7 @@ class DateCheckerTest {
     })
     @DisplayName("1~12 값이 아니라면 예외를 던진다")
     public void constructor(int month) {
-        assertThatThrownBy(() -> new DateChecker(month,DayOfWeek.MONDAY))
+        assertThatThrownBy(() -> new DateChecker(month, DayOfWeek.MONDAY))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorMessage.INVALID_MONTH.getMessage());
     }

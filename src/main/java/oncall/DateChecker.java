@@ -1,6 +1,5 @@
 package oncall;
 
-import java.time.DayOfWeek;
 
 public class DateChecker {
     public static final int MIN_MONTH = 1;
@@ -33,12 +32,8 @@ public class DateChecker {
 
     public boolean isHoliday(int day) {
         DayOfWeek dayOfweek = this.dayOfWeek.plus(day - 1);
-        return !isWeekend(dayOfweek)
+        return !DayOfWeek.isWeekend(dayOfweek)
                 && StatutoryHolidays.of(month, day) != null;
     }
 
-    private boolean isWeekend(DayOfWeek dayOfWeek) {
-        return dayOfWeek == DayOfWeek.SATURDAY
-                || dayOfWeek == DayOfWeek.SUNDAY;
-    }
 }
