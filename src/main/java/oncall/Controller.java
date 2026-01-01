@@ -18,12 +18,15 @@ public class Controller {
     }
 
     public void run() {
-        DateDto dateDto = inputView.readDate();
-        DateChecker dateChecker = new DateChecker(dateDto.month(), dateDto.dayOfWeek());
+        DateChecker dateChecker = ErrorHandler.retry(
+                () -> createDateCheker(inputView.readDate()),
+                outputView);
 
-        List<String> weekdayWorker = inputView.readWeekdayWorker();
-        List<String> holidayWorker = inputView.readHolidayWorker();
-        EmergencyWorker emergencyWorker = createEmergencyWorker(weekdayWorker, holidayWorker);
+        EmergencyWorker emergencyWorker = ErrorHandler.retry(
+                () -> createEmergencyWorker(
+                        inputView.readWeekdayWorker(),
+                        inputView.readHolidayWorker()),
+                outputView);
 
         for (int day = 1; day <= dateChecker.getLastDayOfMonth(); day++) {
             boolean isHoliday = dateChecker.isHoliday(day);
@@ -33,6 +36,10 @@ public class Controller {
                     dateChecker.getMonth(), day,
                     dateChecker.getDayOfWeek(day).getLabel(), nextWorker, isHolidayAndWeekday);
         }
+    }
+
+    private DateChecker createDateCheker(DateDto dateDto) {
+        return new DateChecker(dateDto.month(), dateDto.dayOfWeek());
     }
 
     private EmergencyWorker createEmergencyWorker(List<String> weekdayWorker, List<String> holidayWorker) {
