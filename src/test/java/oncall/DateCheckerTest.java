@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class DateCheckerTest {
 
-    public static Stream<Arguments> isHoliday() {
+    public static Stream<Arguments> isHolidayAndWeekDay() {
         return Stream.of(
                 Arguments.of(DayOfWeek.MONDAY, true),
                 Arguments.of(DayOfWeek.FRIDAY, true),
@@ -35,10 +35,10 @@ class DateCheckerTest {
     @ParameterizedTest
     @DisplayName("평일 이면서 법정 공휴일인 경우 휴일 임을 알려준다.")
     @MethodSource
-    public void isHoliday(DayOfWeek dayOfWeek, boolean isHoliday) {
+    public void isHolidayAndWeekDay(DayOfWeek dayOfWeek, boolean isHoliday) {
         DateChecker dateChecker = new DateChecker(1, dayOfWeek);
-        assertThat(dateChecker.isHoliday(1)).isEqualTo(isHoliday);
-        assertThat(dateChecker.isHoliday(2)).isEqualTo(false);
+        assertThat(dateChecker.isHolidayAndWeekDay(1)).isEqualTo(isHoliday);
+        assertThat(dateChecker.isHolidayAndWeekDay(2)).isEqualTo(false);
     }
 
     @ParameterizedTest
@@ -50,7 +50,7 @@ class DateCheckerTest {
     })
     public void getLastDayOfMonth(int month, int day) {
         DateChecker dateChecker = new DateChecker(month, DayOfWeek.MONDAY);
-        assertThat(dateChecker.getLastDayOfMonth(month)).isEqualTo(day);
+        assertThat(dateChecker.getLastDayOfMonth()).isEqualTo(day);
 
     }
 }

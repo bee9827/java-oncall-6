@@ -5,7 +5,7 @@ public enum ErrorMessage {
     INVALID_MONTH(""),
     INVALID_WORKER_SIZE(""),
     INVALID_WORKER_DUPLICATE(""),
-    ;
+    INVALID_FORMAT("");
 
     private final String message;
 

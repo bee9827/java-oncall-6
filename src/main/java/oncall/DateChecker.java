@@ -20,7 +20,7 @@ public class DateChecker {
         }
     }
 
-    public int getLastDayOfMonth(int month) {
+    public int getLastDayOfMonth() {
         if (month == 2) {
             return 28;
         }
@@ -31,9 +31,22 @@ public class DateChecker {
     }
 
     public boolean isHoliday(int day) {
-        DayOfWeek dayOfweek = this.dayOfWeek.plus(day - 1);
-        return !DayOfWeek.isWeekend(dayOfweek)
-                && StatutoryHolidays.of(month, day) != null;
+        DayOfWeek dayOfWeek = this.dayOfWeek.plus(day - 1);
+        return Holidays.of(month, day) != null
+                || DayOfWeek.isWeekend(dayOfWeek);
     }
 
+    public boolean isHolidayAndWeekDay(int day) {
+        DayOfWeek dayOfweek = this.dayOfWeek.plus(day - 1);
+        return !DayOfWeek.isWeekend(dayOfweek)
+                && Holidays.of(month, day) != null;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public DayOfWeek getDayOfWeek(int day) {
+        return dayOfWeek.plus(day - 1);
+    }
 }

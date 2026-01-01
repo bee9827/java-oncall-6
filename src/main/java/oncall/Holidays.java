@@ -1,6 +1,6 @@
 package oncall;
 
-public enum StatutoryHolidays {
+public enum Holidays {
     NEW_YEAR(1,1),
     MARCH_FIRST(3,1),
     MAY_FIFTH(5,5),
@@ -14,13 +14,13 @@ public enum StatutoryHolidays {
     private final int month;
     private final int day;
 
-    StatutoryHolidays(int month, int day) {
+    Holidays(int month, int day) {
         this.month = month;
         this.day = day;
     }
 
-    public static StatutoryHolidays of(int month, int day) {
-        for(StatutoryHolidays statutory : StatutoryHolidays.values()) {
+    public static Holidays of(int month, int day) {
+        for(Holidays statutory : Holidays.values()) {
             if(statutory.month == month && statutory.day == day) {
                 return statutory;
             }
