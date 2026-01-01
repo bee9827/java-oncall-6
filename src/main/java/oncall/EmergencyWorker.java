@@ -9,13 +9,13 @@ public class EmergencyWorker {
     private static final int MAX_SIZE = 35;
 
     private final ArrayDeque<Worker> weekdayWorkers = new ArrayDeque<>();
-    private final ArrayDeque<Worker> weekendWorkers = new ArrayDeque<>();
+    private final ArrayDeque<Worker> holidayWorkers = new ArrayDeque<>();
     private final List<Worker> dayWorkers = new ArrayList<>();
 
     public EmergencyWorker(List<Worker> weekdays, List<Worker> weekends) {
         validate(weekdays, weekends);
         weekdayWorkers.addAll(weekdays);
-        weekendWorkers.addAll(weekends);
+        holidayWorkers.addAll(weekends);
     }
 
     private void validate(List<Worker> weekdays, List<Worker> weekends) {
@@ -37,7 +37,7 @@ public class EmergencyWorker {
 
     public String getNextWorker(boolean isHoliday) {
         if (isHoliday) {
-            return work(weekendWorkers);
+            return work(holidayWorkers);
         }
         return work(weekdayWorkers);
     }
@@ -49,7 +49,7 @@ public class EmergencyWorker {
     }
 
     private String work(ArrayDeque<Worker> workers) {
-        if (!dayWorkers.isEmpty() && dayWorkers.getLast() == workers.peekFirst()) {
+        if (!dayWorkers.isEmpty() && dayWorkers.getLast().equals(workers.peekFirst())) {
             swapWorker(workers);
         }
         Worker worker = workers.pollFirst();
