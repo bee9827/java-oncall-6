@@ -1,7 +1,7 @@
 package oncall;
 
 import oncall.controller.Controller;
-import oncall.controller.OutputView;
+import oncall.view.OutputView;
 import oncall.error.ErrorHandler;
 import oncall.view.InputView;
 

@@ -7,6 +7,7 @@ import oncall.model.OnCall;
 import oncall.model.OnCallDate;
 import oncall.view.InputView;
 import oncall.view.OnCallDateDto;
+import oncall.view.OutputView;
 
 public class Controller {
     private final InputView inputView;
@@ -17,6 +18,13 @@ public class Controller {
         this.inputView = inputView;
         this.outputView = outputView;
         this.errorHandler = errorHandler;
+    }
+
+    public void run() {
+        OnCallDate oncallDate = errorHandler.retryWithPrintError(this::readOnCallDate);
+        OnCall onCall = errorHandler.retryWithPrintError(() -> readOnCallCrews(oncallDate));
+        List<Crew> workSchedule = onCall.getWorkSchedule();
+        outputView.printWorkSchedules(oncallDate, workSchedule);
     }
 
     private OnCallDate readOnCallDate() {
@@ -35,13 +43,5 @@ public class Controller {
         return names.stream()
                 .map(Crew::new)
                 .toList();
-    }
-
-
-    public void run() {
-        OnCallDate oncallDate = errorHandler.retryWithPrintError(this::readOnCallDate);
-        OnCall onCall = errorHandler.retryWithPrintError(() -> readOnCallCrews(oncallDate));
-        List<Crew> workSchedule = onCall.getWorkSchedule();
-        outputView.printWorkSchedules(oncallDate, workSchedule);
     }
 }

@@ -1,7 +1,7 @@
 package oncall.error;
 
 import java.util.function.Supplier;
-import oncall.controller.OutputView;
+import oncall.view.OutputView;
 
 public class ErrorHandler {
     private final OutputView outputView;

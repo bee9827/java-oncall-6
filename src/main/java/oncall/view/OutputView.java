@@ -1,4 +1,4 @@
-package oncall.controller;
+package oncall.view;
 
 import java.util.List;
 import oncall.model.Crew;
