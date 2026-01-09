@@ -1,6 +1,7 @@
 package oncall.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -12,10 +13,11 @@ public class OnCall {
     private final OnCallDate onCallDate;
     private final List<Crew> weekday;
     private final List<Crew> holiday;
-
     private final Queue<Crew> weekdayQueue = new LinkedList<>();
     private final Queue<Crew> holidayQueue = new LinkedList<>();
     private final List<Crew> workSchedule = new ArrayList<>();
+    private int weekdayIdx = 0;
+    private int holidayIdx = 0;
 
     public OnCall(OnCallDate onCallDate, List<Crew> weekday, List<Crew> holiday) {
         validateCrew(weekday);
@@ -29,7 +31,7 @@ public class OnCall {
         if (workSchedule.isEmpty()) {
             run();
         }
-        return workSchedule;
+        return Collections.unmodifiableList(workSchedule);
     }
 
     private void run() {
@@ -43,20 +45,21 @@ public class OnCall {
             boolean isHoliday = Holiday.isHoliday(onCallDate.getMonth(), i, dayOfWeek);
 
             if (isHoliday) {
-                put(holiday, holidayQueue, i);
+                put(holiday, holidayQueue, holidayIdx);
+                holidayIdx += 1;
                 continue;
             }
-            put(weekday, weekdayQueue, i);
+            put(weekday, weekdayQueue, weekdayIdx);
+            weekdayIdx += 1;
         }
     }
 
-    private void put(List<Crew> crews, Queue<Crew> queue, int i) {
-        int idx = (i - 1) % crews.size();
+    private void put(List<Crew> crews, Queue<Crew> queue, int idx) {
         if (!queue.isEmpty()) {
             workSchedule.add(queue.poll());
             return;
         }
-        if (isContinuousWork(crews, i, idx)) {
+        if (isContinuousWork(crews, idx)) {
             queue.add(crews.get(idx));
             workSchedule.add(crews.get(idx + 1));
             return;
@@ -64,8 +67,8 @@ public class OnCall {
         workSchedule.add(crews.get(idx));
     }
 
-    private boolean isContinuousWork(List<Crew> crews, int i, int idx) {
-        return i > 1 && crews.get(idx) == workSchedule.get(workSchedule.size() - 1);
+    private boolean isContinuousWork(List<Crew> crews, int idx) {
+        return !workSchedule.isEmpty() && crews.get(idx) == workSchedule.get(workSchedule.size() - 1);
     }
 
     private void validateCrew(List<Crew> crews) {
