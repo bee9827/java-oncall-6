@@ -13,7 +13,7 @@ public enum DayOfWeek {
     ;
     private static final DayOfWeek[] VALUES = values();
 
-    private String label;
+    private final String label;
 
     DayOfWeek(String label) {
         this.label = label;
@@ -33,6 +33,6 @@ public enum DayOfWeek {
     }
 
     public DayOfWeek plus(int day) {
-        return VALUES[this.ordinal() + (day) % 7];
+        return VALUES[(this.ordinal() + (day)) % 7];
     }
 }
