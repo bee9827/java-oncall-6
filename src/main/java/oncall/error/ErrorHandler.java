@@ -1,5 +1,6 @@
 package oncall.error;
 
+import java.util.function.Supplier;
 import oncall.controller.OutputView;
 
 public class ErrorHandler {
@@ -9,12 +10,11 @@ public class ErrorHandler {
         this.outputView = outputView;
     }
 
-    public void retryWithPrintError(Runnable runnable) {
+    public <T> T retryWithPrintError(Supplier<T> supplier) {
         while (true) {
             try {
-                runnable.run();
-                return;
-            } catch (IllegalArgumentException e){
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }

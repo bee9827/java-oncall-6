@@ -1,8 +1,17 @@
 package oncall;
 
+import oncall.controller.Controller;
+import oncall.controller.OutputView;
+import oncall.error.ErrorHandler;
+import oncall.view.InputView;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
+        ErrorHandler errorHandler = new ErrorHandler(outputView);
+        Controller controller = new Controller(inputView,outputView,errorHandler);
+        controller.run();
 
     }
 }
