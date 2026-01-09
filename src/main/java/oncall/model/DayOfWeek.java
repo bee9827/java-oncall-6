@@ -11,6 +11,8 @@ public enum DayOfWeek {
     SATURDAY("토"),
     SUNDAY("일"),
     ;
+    private static final DayOfWeek[] VALUES = values();
+
     private String label;
 
     DayOfWeek(String label) {
@@ -28,5 +30,9 @@ public enum DayOfWeek {
 
     public String getLabel() {
         return label;
+    }
+
+    public DayOfWeek plus(int day) {
+        return VALUES[this.ordinal() + (day) % 7];
     }
 }
