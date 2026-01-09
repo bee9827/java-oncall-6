@@ -33,4 +33,8 @@ public class OnCallDate {
     public DayOfWeek getDayOfWeek(int day) {
         return dayOfWeek.plus(day - 1);
     }
+
+    public int getMonth() {
+        return month;
+    }
 }

@@ -3,7 +3,11 @@ package oncall.error;
 public enum ErrorMessage {
     INVALID_INPUT("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
     NAME_LENGTH("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
-    MONTH_VALUE("유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
+    MONTH_VALUE("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
+    DUPLICATE_CREW("유효하지 않은 입력 값입니다. 다시 입력해 주세요."),
+    CREW_MAX_SIZE("유효하지 않은 입력 값입니다. 다시 입력해 주세요.")
+    ;
+
 
     public static final String PREFIX = "[ERROR] ";
     private final String label;
